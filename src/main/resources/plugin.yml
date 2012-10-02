@@ -1,0 +1,20 @@
+name: MChannels
+main: com.miraclem4n.mchannels.MChannels
+version: ${m.version}-${build.number}-${p.version}
+author: MiracleM4n
+authors: [MiracleM4n]
+website: http://mdev.in/
+softdepend: [mChatSuite, MChat]
+description: MChat's Channel Implementation
+commands:
+    msocial:
+        aliases: [msoc, ms]
+permissions:
+    msocial.*:
+        default: op
+        description: Allows full use of MSocial.
+        children:
+            msocial.reload: true
+    msocial.reload:
+        default: false
+        description: Allow usage of /msocial reload command.
