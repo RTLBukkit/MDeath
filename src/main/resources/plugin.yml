@@ -5,7 +5,7 @@ author: MiracleM4n
 authors: [MiracleM4n]
 website: http://mdev.in/
 softdepend: [mChatSuite, MChat]
-description: MChat's Channel Implementation
+description: PM funcionatily, Shout, Mute, etc.
 commands:
     msocial:
         aliases: [msoc, ms]
