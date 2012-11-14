@@ -1,20 +1,97 @@
-name: MChannels
-main: com.miraclem4n.mchannels.MChannels
+name: MSocial
+main: com.miraclem4n.msocial.MSocial
 version: ${m.version}-${build.number}-${p.version}
 author: MiracleM4n
 authors: [MiracleM4n]
 website: http://mdev.in/
-softdepend: [mChatSuite, MChat]
+softdepend: [mChatSuite, MChat, Spout, SpoutPlugin]
 description: PM funcionatily, Shout, Mute, etc.
 commands:
     msocial:
         aliases: [msoc, ms]
+        ~permissions: msocial.reload
+    mchatme:
+        usage: |
+            /<command> *Message* - Displays message.
+        aliases: [mme]
+        ~permissions: mchat.group.*
+    mchatsay:
+        usage: |
+            /<command> *Message* - Broadcast a message.
+        aliases: [msay]
+        ~permissions: mchat.say
+    mchatshout:
+        usage: |
+            /<command> - Broadcasts message overriding Local Chat.
+        aliases: [mshout, myell]
+        ~permissions: mchat.shout
+    mchatmute:
+        usage: |
+            /<command> [Player] - Mutes a player.
+        aliases: [mmute]
+        ~permissions: mchat.mute
+    pmchat:
+        usage: |
+            /<command> {player} *Message* - Sends PM to player.
+        aliases: [mchattell, mtell, mmsg, mmessage]
+        ~permissions: mchat.pm.pm
+    pmchatreply:
+        usage: |
+            /<command> *Message* - Sends Reply to a players PM.
+        aliases: [pmchatr, pmreply, pmr, preply]
+        ~permissions: mchat.pm.reply
+    pmchatinvite:
+        usage: |
+            /<command> {player} - Sends a private Convo invitation to player.
+        aliases: [pmchati, pminvite, pmi, pinvite]
+        ~permissions: mchat.pm.invite
+    pmchataccept:
+        usage: |
+            /<command> - Accept pending Convo.
+        aliases: [pmchata, pmaccept, pma, paccept]
+    pmchatdeny:
+        usage: |
+            /<command> - Deny pending Convo.
+        aliases: [pmchatd, pmdeny, pmd, pdeny]
+    pmchatleave:
+        usage: |
+            /<command> - Ends convo.
+        aliases: [pmchatl, pmleave, pml, pleave]
 permissions:
     msocial.*:
         default: op
         description: Allows full use of MSocial.
         children:
             msocial.reload: true
+            mchat.pm.*: true
+            mchat.mute: true
+            mchat.shout: true
+            mchat.say: true
+    mchat.pm.*:
+        default: false
+        description: Allow usage of all PM functions
+        children:
+            mchat.pm.pm: true
+            mchat.pm.reply: true
+            mchat.pm.invite: true
     msocial.reload:
         default: false
         description: Allow usage of /msocial reload command.
+    mchat.pm.pm:
+        default: false
+        description: Allow use of the /pmchat command.
+    mchat.pm.reply:
+        default: false
+        description: Allow use of the /pmchatreply command.
+    mchat.pm.invite:
+        default: false
+        description: Allow use of the /pmchatinvite command.
+    mchat.mute:
+        default: false
+        description: Allows muting and unmuting of players.
+    mchat.shout:
+        default: false
+        description: Allow use of the /mchatshout command.
+    mchat.say:
+        default: false
+        description: Allow use of the /mchatsay command.

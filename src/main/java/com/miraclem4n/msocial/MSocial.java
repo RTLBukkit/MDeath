@@ -3,10 +3,17 @@ package com.miraclem4n.msocial;
 import com.miraclem4n.mchat.metrics.Metrics;
 import com.miraclem4n.mchat.util.MessageUtil;
 import com.miraclem4n.mchat.util.TimerUtil;
+import com.miraclem4n.msocial.commands.*;
+import com.miraclem4n.msocial.configs.ConfigUtil;
+import com.miraclem4n.msocial.configs.LocaleUtil;
+import com.miraclem4n.msocial.types.ConfigType;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
 
 public class MSocial extends JavaPlugin {
     // Default Plugin Data
@@ -16,6 +23,17 @@ public class MSocial extends JavaPlugin {
     // Metrics
     public Metrics metrics;
 
+    // Spout
+    public Boolean spoutB = false;
+
+    // Maps
+    public HashMap<String, Boolean> isMuted = new HashMap<String, Boolean>();
+    public HashMap<String, Boolean> isConv = new HashMap<String, Boolean>();
+
+    public HashMap<String, String> lastPMd = new HashMap<String, String>();
+    public HashMap<String, String> getInvite = new HashMap<String, String>();
+    public HashMap<String, String> chatPartner = new HashMap<String, String>();
+
     public void onEnable() {
         // Initialize Plugin Data
         pm = getServer().getPluginManager();
@@ -24,6 +42,12 @@ public class MSocial extends JavaPlugin {
         try {
             // Initialize and Start the Timer
             TimerUtil timer = new TimerUtil();
+
+            initializeConfigs();
+
+            setupPlugins();
+
+            setupCommands();
 
             // Stop the Timer
             timer.stop();
@@ -44,6 +68,8 @@ public class MSocial extends JavaPlugin {
 
             getServer().getScheduler().cancelTasks(this);
 
+            unloadConfigs();
+
             // Stop the Timer
             timer.stop();
 
@@ -57,8 +83,53 @@ public class MSocial extends JavaPlugin {
         }
     }
 
+    Boolean setupPlugin(String pluginName) {
+        Plugin plugin = pm.getPlugin(pluginName);
+
+        if (plugin != null) {
+            MessageUtil.log("[" + pdfFile.getName() + "] <Plugin> " + plugin.getDescription().getName() + " v" + plugin.getDescription().getVersion() + " hooked!.");
+            return true;
+        }
+
+        return false;
+    }
+
+    void setupPlugins() {
+        spoutB = setupPlugin("Spout");
+
+        if (!ConfigType.OPTION_SPOUT.getBoolean())
+            spoutB = false;
+    }
+
+    void setupCommands() {
+        regCommands("pmchat", new PMCommand(this));
+        regCommands("pmchataccept", new AcceptCommand(this));
+        regCommands("pmchatdeny", new DenyCommand(this));
+        regCommands("pmchatinvite", new InviteCommand(this));
+        regCommands("pmchatleave", new LeaveCommand(this));
+        regCommands("pmchatreply", new ReplyCommand(this));
+        regCommands("mchatmute", new MuteCommand(this));
+        regCommands("mchatsay", new SayCommand(this));
+        regCommands("mchatshout", new ShoutCommand(this));
+    }
+
     void regCommands(String command, CommandExecutor executor) {
         if (getCommand(command) != null)
             getCommand(command).setExecutor(executor);
+    }
+
+    public void initializeConfigs() {
+        ConfigUtil.initialize();
+        LocaleUtil.initialize();
+    }
+
+    public void reloadConfigs() {
+        ConfigUtil.initialize();
+        LocaleUtil.initialize();
+    }
+
+    public void unloadConfigs() {
+        ConfigUtil.dispose();
+        LocaleUtil.dispose();
     }
 }
