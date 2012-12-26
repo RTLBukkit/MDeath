@@ -46,12 +46,13 @@ public class ReplyCommand implements CommandExecutor {
         for (String arg : args)
             message += " " + arg;
 
-        if (plugin.lastPMd.get(pName) == null) {
+        String rName = plugin.lastPMd.get(pName);
+
+        if (rName == null) {
             MessageUtil.sendMessage(player, LocaleType.MESSAGE_PM_NO_PM.getVal());
             return true;
         }
 
-        String rName = plugin.lastPMd.get(pName);
         Player recipient = plugin.getServer().getPlayer(rName);
 
         if (!MiscUtil.isOnlineForCommand(sender, recipient))
