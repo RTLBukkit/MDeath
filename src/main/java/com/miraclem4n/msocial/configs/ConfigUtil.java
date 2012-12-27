@@ -64,8 +64,6 @@ public class ConfigUtil {
         checkOption("aliases.mchatshout", shoutAliases);
         checkOption("aliases.mchatmute", muteAliases);
 
-        unloadAliases();
-
         setupAliasMap();
 
         save();
@@ -141,26 +139,6 @@ public class ConfigUtil {
         denyAliases.add("deny");
 
         leaveAliases.add("leave");
-    }
-
-    private static void unloadAliases() {
-        sayAliases.clear();
-
-        shoutAliases.clear();
-
-        muteAliases.clear();
-
-        pmAliases.clear();
-
-        replyAliases.clear();
-
-        inviteAliases.clear();
-
-        acceptAliases.clear();
-
-        denyAliases.clear();
-
-        leaveAliases.clear();
     }
 
     private static void setupAliasMap() {
