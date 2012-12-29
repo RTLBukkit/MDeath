@@ -2,10 +2,10 @@ package com.miraclem4n.msocial.commands;
 
 import com.miraclem4n.mchat.api.API;
 import com.miraclem4n.mchat.types.IndicatorType;
-import com.miraclem4n.msocial.types.LocaleType;
 import com.miraclem4n.mchat.util.MessageUtil;
 import com.miraclem4n.mchat.util.MiscUtil;
 import com.miraclem4n.msocial.MSocial;
+import com.miraclem4n.msocial.types.LocaleType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
