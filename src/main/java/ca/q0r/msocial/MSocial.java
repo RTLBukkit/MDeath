@@ -1,12 +1,12 @@
-package com.miraclem4n.msocial;
+package ca.q0r.msocial;
 
+import ca.q0r.msocial.commands.*;
+import ca.q0r.msocial.configs.ConfigUtil;
+import ca.q0r.msocial.configs.LocaleUtil;
+import ca.q0r.msocial.types.ConfigType;
 import com.miraclem4n.mchat.metrics.Metrics;
 import com.miraclem4n.mchat.util.MessageUtil;
 import com.miraclem4n.mchat.util.TimerUtil;
-import com.miraclem4n.msocial.commands.*;
-import com.miraclem4n.msocial.configs.ConfigUtil;
-import com.miraclem4n.msocial.configs.LocaleUtil;
-import com.miraclem4n.msocial.types.ConfigType;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;

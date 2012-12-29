@@ -1,5 +1,5 @@
 name: MSocial
-main: com.miraclem4n.msocial.MSocial
+main: ca.q0r.msocial.MSocial
 version: ${version}-${build.number}
 author: MiracleM4n
 authors: [MiracleM4n]

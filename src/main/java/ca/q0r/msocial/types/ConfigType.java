@@ -1,7 +1,7 @@
-package com.miraclem4n.msocial.types;
+package ca.q0r.msocial.types;
 
+import ca.q0r.msocial.configs.ConfigUtil;
 import com.miraclem4n.mchat.util.MessageUtil;
-import com.miraclem4n.msocial.configs.ConfigUtil;
 
 import java.util.ArrayList;
 

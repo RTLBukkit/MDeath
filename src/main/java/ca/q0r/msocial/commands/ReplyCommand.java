@@ -1,13 +1,13 @@
-package com.miraclem4n.msocial.commands;
+package ca.q0r.msocial.commands;
 
+import ca.q0r.msocial.MSocial;
+import ca.q0r.msocial.types.ConfigType;
+import ca.q0r.msocial.types.LocaleType;
 import com.miraclem4n.mchat.api.API;
 import com.miraclem4n.mchat.api.Parser;
 import com.miraclem4n.mchat.types.IndicatorType;
 import com.miraclem4n.mchat.util.MessageUtil;
 import com.miraclem4n.mchat.util.MiscUtil;
-import com.miraclem4n.msocial.MSocial;
-import com.miraclem4n.msocial.types.ConfigType;
-import com.miraclem4n.msocial.types.LocaleType;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,18 +17,18 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import java.util.HashMap;
 
-public class PMCommand implements CommandExecutor {
+public class ReplyCommand implements CommandExecutor {
     MSocial plugin;
 
-    public PMCommand(MSocial instance) {
+    public ReplyCommand(MSocial instance) {
         plugin = instance;
     }
 
     String message = "";
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!command.getName().equalsIgnoreCase("pmchat")
-                || !MiscUtil.hasCommandPerm(sender, "mchat.pm.pm"))
+        if (!command.getName().equalsIgnoreCase("pmchatreply")
+                || !MiscUtil.hasCommandPerm(sender, "mchat.pm.reply"))
             return true;
 
         //TODO Allow Console's to PM
@@ -41,18 +41,23 @@ public class PMCommand implements CommandExecutor {
         String pName = player.getName();
         String world = player.getWorld().getName();
 
-        if (args.length < 2)
-            return false;
-
         message = "";
-        for (int i = 1; i < args.length; ++i)
-            message += " " + args[i];
 
-        if (!MiscUtil.isOnlineForCommand(sender, args[0]))
+        for (String arg : args)
+            message += " " + arg;
+
+        String rName = plugin.lastPMd.get(pName);
+
+        if (rName == null) {
+            MessageUtil.sendMessage(player, LocaleType.MESSAGE_PM_NO_PM.getVal());
+            return true;
+        }
+
+        Player recipient = plugin.getServer().getPlayer(rName);
+
+        if (!MiscUtil.isOnlineForCommand(sender, recipient))
             return true;
 
-        Player recipient = plugin.getServer().getPlayer(args[0]);
-        String rName = recipient.getName();
         String senderName = Parser.parsePlayerName(pName, world);
 
         HashMap<String, String> rMap = new HashMap<String, String>();

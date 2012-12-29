@@ -1,7 +1,7 @@
-package com.miraclem4n.msocial.types;
+package ca.q0r.msocial.types;
 
+import ca.q0r.msocial.configs.LocaleUtil;
 import com.miraclem4n.mchat.util.MessageUtil;
-import com.miraclem4n.msocial.configs.LocaleUtil;
 
 public enum LocaleType {
     FORMAT_PM_RECEIVED("format.pm.received"),

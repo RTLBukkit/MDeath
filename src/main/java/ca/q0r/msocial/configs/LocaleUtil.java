@@ -1,4 +1,4 @@
-package com.miraclem4n.msocial.configs;
+package ca.q0r.msocial.configs;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
