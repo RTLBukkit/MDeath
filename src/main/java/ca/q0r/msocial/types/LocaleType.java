@@ -23,8 +23,6 @@ public enum LocaleType {
     MESSAGE_CONVERSATION_STARTED("message.convo.started"),
     MESSAGE_MUTE_MISC("message.general.mute"),
     MESSAGE_PM_NO_PM("message.pm.noPm"),
-    MESSAGE_PM_RECEIVED("message.pm.sent"),
-    MESSAGE_PM_SENT("message.pm.sent"),
     MESSAGE_SHOUT_NO_INPUT("message.shout.noInput"),
     MESSAGE_SPOUT_PM("message.spout.pmFrom");
 
