@@ -11,7 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class MuteCommand implements CommandExecutor {
     MSocial plugin;
@@ -34,7 +34,7 @@ public class MuteCommand implements CommandExecutor {
         if (player != null)
             target = player.getName();
 
-        HashMap<String, String> rMap = new HashMap<String, String>();
+        TreeMap<String, String> rMap = new TreeMap<String, String>();
 
         rMap.put("player", target);
 

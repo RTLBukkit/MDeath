@@ -15,7 +15,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class PMCommand implements CommandExecutor {
     MSocial plugin;
@@ -55,7 +55,7 @@ public class PMCommand implements CommandExecutor {
         String rName = recipient.getName();
         String senderName = Parser.parsePlayerName(pName, world);
 
-        HashMap<String, String> rMap = new HashMap<String, String>();
+        TreeMap<String, String> rMap = new TreeMap<String, String>();
 
         rMap.put("recipient", Parser.parsePlayerName(rName, recipient.getWorld().getName()));
         rMap.put("sender", Parser.parsePlayerName(senderName, world));

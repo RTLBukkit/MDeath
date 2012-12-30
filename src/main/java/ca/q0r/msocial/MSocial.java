@@ -6,8 +6,6 @@ import ca.q0r.msocial.configs.LocaleUtil;
 import ca.q0r.msocial.events.ChatListener;
 import ca.q0r.msocial.events.CommandListener;
 import ca.q0r.msocial.types.ConfigType;
-import ca.q0r.msocial.types.LocaleType;
-import com.miraclem4n.mchat.MChat;
 import com.miraclem4n.mchat.metrics.Metrics;
 import com.miraclem4n.mchat.util.MessageUtil;
 import com.miraclem4n.mchat.util.TimerUtil;
