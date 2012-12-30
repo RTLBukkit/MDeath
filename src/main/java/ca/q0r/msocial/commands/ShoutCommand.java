@@ -42,11 +42,11 @@ public class ShoutCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        MChat.isShouting.put(sender.getName(), true);
+        MChat.shouting.put(sender.getName(), true);
 
         plugin.getServer().broadcastMessage(Parser.parseChatMessage(player.getName(), player.getWorld().getName(), message));
 
-        MChat.isShouting.put(sender.getName(), false);
+        MChat.shouting.put(sender.getName(), false);
 
         return true;
     }
