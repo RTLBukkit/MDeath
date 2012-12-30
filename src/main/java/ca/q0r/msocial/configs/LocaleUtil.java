@@ -1,5 +1,7 @@
 package ca.q0r.msocial.configs;
 
+import ca.q0r.msocial.types.LocaleType;
+import com.miraclem4n.mchat.MChat;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -30,6 +32,8 @@ public class LocaleUtil {
         changed = false;
 
         loadDefaults();
+
+        MChat.shoutFormat = LocaleType.FORMAT_SHOUT.getRaw();
     }
 
     private static void loadDefaults() {
