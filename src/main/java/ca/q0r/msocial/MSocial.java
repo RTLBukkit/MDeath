@@ -3,6 +3,8 @@ package ca.q0r.msocial;
 import ca.q0r.msocial.commands.*;
 import ca.q0r.msocial.configs.ConfigUtil;
 import ca.q0r.msocial.configs.LocaleUtil;
+import ca.q0r.msocial.events.ChatListener;
+import ca.q0r.msocial.events.CommandListener;
 import ca.q0r.msocial.types.ConfigType;
 import ca.q0r.msocial.types.LocaleType;
 import com.miraclem4n.mchat.MChat;
@@ -50,6 +52,8 @@ public class MSocial extends JavaPlugin {
             setupPlugins();
 
             setupCommands();
+
+            setupEvents();
 
             // Stop the Timer
             timer.stop();
@@ -118,6 +122,11 @@ public class MSocial extends JavaPlugin {
     void regCommands(String command, CommandExecutor executor) {
         if (getCommand(command) != null)
             getCommand(command).setExecutor(executor);
+    }
+
+    void setupEvents() {
+        pm.registerEvents(new ChatListener(this), this);
+        pm.registerEvents(new CommandListener(), this);
     }
 
     public void initializeConfigs() {
