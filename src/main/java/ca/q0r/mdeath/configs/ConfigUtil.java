@@ -1,28 +1,23 @@
-package ca.q0r.msocial.configs;
+package ca.q0r.mdeath.configs;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import ca.q0r.mdeath.MDeath;
+
+import com.miraclem4n.mchat.util.MessageUtil;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 
 public class ConfigUtil {
     static YamlConfiguration config;
     static File file;
     static Boolean changed;
-
-    static ArrayList<String> sayAliases = new ArrayList<String>();
-    static ArrayList<String> shoutAliases = new ArrayList<String>();
-    static ArrayList<String> muteAliases = new ArrayList<String>();
-    static ArrayList<String> pmAliases = new ArrayList<String>();
-    static ArrayList<String> replyAliases = new ArrayList<String>();
-    static ArrayList<String> inviteAliases = new ArrayList<String>();
-    static ArrayList<String> acceptAliases = new ArrayList<String>();
-    static ArrayList<String> denyAliases = new ArrayList<String>();
-    static ArrayList<String> leaveAliases = new ArrayList<String>();
-
+    
     static HashMap<String, List<String>> aliasMap = new HashMap<String, List<String>>();
 
     public static void initialize() {
@@ -37,12 +32,12 @@ public class ConfigUtil {
     }
 
     public static void load() {
-        file = new File("plugins/MSocial/config.yml");
+        file = new File("plugins/MDeath/config.yml");//TODO: change this to use proper method to get plugin directory
 
         config = YamlConfiguration.loadConfiguration(file);
 
         config.options().indent(4);
-        config.options().header("MSocial Config");
+        config.options().header("MDeath Config");
 
         changed = false;
 
@@ -50,20 +45,17 @@ public class ConfigUtil {
     }
 
     private static void loadDefaults() {
-        checkOption("option.spoutPM", false);
+    	editOption("mchat-format-events", "mchat.formatEvents");
+    	editOption("mchat.formatEvents", "mchat.alter.events");
+    	editOption("mchat.alterEvents", "mchat.alter.events");
+        editOption("mchat.alterDeathMessages", "mchat.alter.death");
+
+        checkOption("mchat.alter.events", true);
+        checkOption("mchat.alter.death", true);
+        checkOption("suppress.useDeath", false);
+        checkOption("suppress.maxDeath", 30);
 
         loadAliases();
-
-        checkOption("aliases.mchatsay", sayAliases);
-        checkOption("aliases.pmchat", pmAliases);
-        checkOption("aliases.pmchatreply", replyAliases);
-        checkOption("aliases.pmchatinvite", inviteAliases);
-        checkOption("aliases.pmchataccept", acceptAliases);
-        checkOption("aliases.pmchatdeny", denyAliases);
-        checkOption("aliases.pmchatleave", leaveAliases);
-        checkOption("aliases.mchatshout", shoutAliases);
-        checkOption("aliases.mchatmute", muteAliases);
-
         setupAliasMap();
 
         save();
@@ -114,37 +106,20 @@ public class ConfigUtil {
     }
 
     private static void loadAliases() {
-        sayAliases.add("say");
 
-        shoutAliases.add("shout");
-        shoutAliases.add("yell");
+        //muteAliases.add("mute");
+        //muteAliases.add("quiet");
 
-        muteAliases.add("mute");
-        muteAliases.add("quiet");
-
-        pmAliases.add("pm");
-        pmAliases.add("msg");
-        pmAliases.add("message");
-        pmAliases.add("m");
-        pmAliases.add("tell");
-        pmAliases.add("t");
-
-        replyAliases.add("reply");
-        replyAliases.add("r");
-
-        inviteAliases.add("invite");
-
-        acceptAliases.add("accept");
-
-        denyAliases.add("deny");
-
-        leaveAliases.add("leave");
     }
 
     private static void setupAliasMap() {
+    	try{
         Set<String> keys = config.getConfigurationSection("aliases").getKeys(false);
 
         for (String key : keys)
             aliasMap.put(key, config.getStringList("aliases." + key));
+        }catch(Exception e){
+        	MessageUtil.log(Level.WARNING, "[mdeath] failed to load command aliases:\n"+e.getCause());//TODO: redo mchatsuite with proper logging...
+        }
     }
 }

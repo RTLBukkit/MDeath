@@ -1,6 +1,6 @@
-package ca.q0r.msocial.events;
+package ca.q0r.mdeath.events;
 
-import ca.q0r.msocial.configs.ConfigUtil;
+import ca.q0r.mdeath.configs.ConfigUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

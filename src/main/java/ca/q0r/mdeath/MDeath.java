@@ -1,11 +1,13 @@
-package ca.q0r.msocial;
+package ca.q0r.mdeath;
 
-import ca.q0r.msocial.commands.*;
-import ca.q0r.msocial.configs.ConfigUtil;
-import ca.q0r.msocial.configs.LocaleUtil;
-import ca.q0r.msocial.events.ChatListener;
-import ca.q0r.msocial.events.CommandListener;
-import ca.q0r.msocial.types.ConfigType;
+import ca.q0r.mdeath.commands.*;
+import ca.q0r.mdeath.configs.ConfigUtil;
+import ca.q0r.mdeath.configs.LocaleUtil;
+import ca.q0r.mdeath.events.CommandListener;
+import ca.q0r.mdeath.events.EntityListener;
+import ca.q0r.mdeath.types.ConfigType;
+
+import com.miraclem4n.mchat.commands.MChatCommand;
 import com.miraclem4n.mchat.metrics.Metrics;
 import com.miraclem4n.mchat.util.MessageUtil;
 import com.miraclem4n.mchat.util.TimerUtil;
@@ -17,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 
-public class MSocial extends JavaPlugin {
+public class MDeath extends JavaPlugin {
     // Default Plugin Data
     public PluginManager pm;
     public PluginDescriptionFile pdfFile;
@@ -29,12 +31,7 @@ public class MSocial extends JavaPlugin {
     public Boolean spoutB = false;
 
     // Maps
-    public HashMap<String, Boolean> isMuted = new HashMap<String, Boolean>();
-    public HashMap<String, Boolean> isConv = new HashMap<String, Boolean>();
 
-    public HashMap<String, String> lastPMd = new HashMap<String, String>();
-    public HashMap<String, String> getInvite = new HashMap<String, String>();
-    public HashMap<String, String> chatPartner = new HashMap<String, String>();
 
     public void onEnable() {
         // Initialize Plugin Data
@@ -98,23 +95,10 @@ public class MSocial extends JavaPlugin {
         return false;
     }
 
-    void setupPlugins() {
-        spoutB = setupPlugin("Spout");
-
-        if (!ConfigType.OPTION_SPOUT.getBoolean())
-            spoutB = false;
-    }
+    void setupPlugins() {}
 
     void setupCommands() {
-        regCommands("pmchat", new PMCommand(this));
-        regCommands("pmchataccept", new AcceptCommand(this));
-        regCommands("pmchatdeny", new DenyCommand(this));
-        regCommands("pmchatinvite", new InviteCommand(this));
-        regCommands("pmchatleave", new LeaveCommand(this));
-        regCommands("pmchatreply", new ReplyCommand(this));
-        regCommands("mchatmute", new MuteCommand(this));
-        regCommands("mchatsay", new SayCommand(this));
-        regCommands("mchatshout", new ShoutCommand(this));
+        regCommands("mdeath", new MDeathCommand(this));
     }
 
     void regCommands(String command, CommandExecutor executor) {
@@ -123,8 +107,7 @@ public class MSocial extends JavaPlugin {
     }
 
     void setupEvents() {
-        pm.registerEvents(new ChatListener(this), this);
-        pm.registerEvents(new CommandListener(), this);
+        pm.registerEvents(new EntityListener(this), this);
     }
 
     public void initializeConfigs() {
